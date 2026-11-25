@@ -1,0 +1,16 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: hitcounter
+resources:
+  - namespace.yaml
+  - redis.yaml
+  - api-deployment.yaml
+  - api-service.yaml
+  - ingress.yaml
+  - hpa.yaml
+configMapGenerator:
+  - name: app-config
+    literals:
+      - APP_ENV=base
+      - PORT=3000
+      - REDIS_URL=redis://redis:6379
